@@ -41,6 +41,33 @@ public class MainActivity extends ActionBarActivity {
 		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
 	}
 	
+	public void getBusinessHeadlines(View view){
+		
+		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayBusiness);
+		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloBusiness);
+		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgeBusiness);
+		
+		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
+	}
+	
+	public void getEntertainmentHeadlines(View view){
+		
+		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayEntertainment);
+		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloEntertainment);
+		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgeEntertainment);
+		
+		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
+	}	
+	
+	public void getPoliticsHeadlines(View view){
+		
+		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayPolitics);
+		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloPolitics);
+		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgePolitics);
+		
+		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
+	}
+	
 	private class DownloadHeadlines extends AsyncTask<NewsPaper, Void, String>{
 
 		@Override
