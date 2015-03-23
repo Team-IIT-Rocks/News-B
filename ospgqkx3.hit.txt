@@ -1,0 +1,21 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   bin/News-B.apk
+#	modified:   bin/classes.dex
+#	modified:   bin/classes/com/example/news_b/MainActivity$DownloadHeadlines.class
+#	modified:   bin/classes/com/example/newspapers/ProthomAlo.class
+#	modified:   bin/dexedLibs/android-support-v4-babf5284f6ee439aa187c455191508ee.jar
+#	modified:   bin/dexedLibs/android-support-v7-appcompat-5702ceb5ab85c2aaabd6e3bdd33e4a4a.jar
+#	modified:   bin/dexedLibs/appcompat_v7-f76297fa4301a751c093c4c5ebbf8298.jar
+#	modified:   bin/dexedLibs/jsoup-1.8.1-d98fbedc596b25620486ed081a8ad281.jar
+#	deleted:    bin/jarlist.cache
+#	modified:   bin/resources.ap_
+#	modified:   src/com/example/news_b/MainActivity.java
+#	modified:   src/com/example/newspapers/ProthomAlo.java
+#
+

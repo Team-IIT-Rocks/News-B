@@ -19,6 +19,7 @@ import com.example.urls.TheNewAgeUrls;
 import android.support.v7.app.ActionBarActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -77,6 +78,7 @@ public class MainActivity extends ActionBarActivity {
 			List<List<Headline>> allHeadlines = new ArrayList<List<Headline>>();
 			for (NewsPaper newsPaper : newsPapers) {
 				try {
+					//Log.d("url", newsPaper.url);
 					Document document = Jsoup.connect(newsPaper.url).get();
 					onePaperheadlines = new ArrayList<Headline>();
 					onePaperheadlines = newsPaper.parseDocumentToHeadlines(document); 
