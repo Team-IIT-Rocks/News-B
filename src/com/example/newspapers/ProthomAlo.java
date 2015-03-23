@@ -6,6 +6,8 @@ import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import android.util.Log;
+
 import com.example.news_b.Headline;
 
 public class ProthomAlo extends NewsPaper{
@@ -27,6 +29,7 @@ public class ProthomAlo extends NewsPaper{
 				Headline headline = new Headline(element.text(),
 						absoluteUrlOfElement);
 				headlines.add(headline);
+				//Log.d("image src", element.select("img").attr("src"));
 			}
 		}
 		return headlines;

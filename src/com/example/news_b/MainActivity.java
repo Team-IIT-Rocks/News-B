@@ -68,14 +68,13 @@ public class MainActivity extends ActionBarActivity {
 		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
 	}
 	
-	private class DownloadHeadlines extends AsyncTask<NewsPaper, Void, String>{
+	private class DownloadHeadlines extends AsyncTask<NewsPaper, Void, List<List<Headline>>>{
 
 		@Override
-		protected String doInBackground(NewsPaper... newsPapers) {
+		protected List<List<Headline>> doInBackground(NewsPaper... newsPapers) {
 			
 			List<Headline> onePaperheadlines;
 			List<List<Headline>> allHeadlines = new ArrayList<List<Headline>>();
-			StringBuffer buffer = new StringBuffer();
 			for (NewsPaper newsPaper : newsPapers) {
 				try {
 					Document document = Jsoup.connect(newsPaper.url).get();
@@ -86,20 +85,19 @@ public class MainActivity extends ActionBarActivity {
 					e.printStackTrace();
 				}
 			}
-			//buffer.append(allHeadlines);
 			
-			for (List<Headline> headlines : allHeadlines) {
+			/*for (List<Headline> headlines : allHeadlines) {
 				for (Headline headline : headlines) {
 					buffer.append(headline.getUrl() + "\n");
 				}
-			}
-			return buffer.toString();
+			}*/
+			return allHeadlines;
 		}
 		
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(List<List<Headline>> result) {
 			super.onPostExecute(result);
-			textView.setText(result);
+			textView.setText(result.toString());
 		}
 	}
 }
