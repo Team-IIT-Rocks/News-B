@@ -10,8 +10,6 @@ import org.jsoup.nodes.Document;
 
 import com.example.newspapers.NewsPaper;
 import com.example.newspapers.ProthomAlo;
-import com.example.newspapers.TheBangladeshToday;
-import com.example.newspapers.TheNewAge;
 import com.example.urls.ProthomAloUrls;
 import com.example.urls.TheBangladeshTodayUrls;
 import com.example.urls.TheNewAgeUrls;
@@ -21,85 +19,58 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-	private TextView textView;
+	private ListView listView;
+	private CustomList adapter;
+	private List<Headline> headlines;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		textView = (TextView) findViewById(R.id.NewsText);
+		
+		
+		
+		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloSports, MainActivity.this);
+		new DownloadHeadlines().execute(prothomAlo);
+		
 	}
 
 	public void getSportsHeadlines(View view){
+		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloSports, MainActivity.this);
+		new DownloadHeadlines().execute(prothomAlo);
 		
-		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodaySports);
-		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloSports);
-		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgeSports);
-		
-		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
 	}
 	
-	public void getBusinessHeadlines(View view){
-		
-		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayBusiness);
-		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloBusiness);
-		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgeBusiness);
-		
-		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
-	}
-	
-	public void getEntertainmentHeadlines(View view){
-		
-		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayEntertainment);
-		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloEntertainment);
-		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgeEntertainment);
-		
-		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
-	}	
-	
-	public void getPoliticsHeadlines(View view){
-		
-		NewsPaper theBangladeshToday = new TheBangladeshToday(new TheBangladeshTodayUrls().theBangladeshTodayPolitics);
-		NewsPaper prothomAlo = new ProthomAlo(new ProthomAloUrls().prothomAloPolitics);
-		NewsPaper theNewAge = new TheNewAge(new TheNewAgeUrls().theNewAgePolitics);
-		
-		new DownloadHeadlines().execute(theBangladeshToday, prothomAlo, theNewAge);
-	}
-	
-	private class DownloadHeadlines extends AsyncTask<NewsPaper, Void, List<List<Headline>>>{
+	private class DownloadHeadlines extends AsyncTask<NewsPaper, Void, List<Headline>>{
 
 		@Override
-		protected List<List<Headline>> doInBackground(NewsPaper... newsPapers) {
+		protected List<Headline> doInBackground(NewsPaper... newsPapers) {
 			
-			List<Headline> onePaperheadlines;
-			List<List<Headline>> allHeadlines = new ArrayList<List<Headline>>();
+			List<Headline> onePaperheadlines = null;
 			for (NewsPaper newsPaper : newsPapers) {
 				try {
-					//Log.d("url", newsPaper.url);
 					Document document = Jsoup.connect(newsPaper.url).get();
 					onePaperheadlines = new ArrayList<Headline>();
 					onePaperheadlines = newsPaper.parseDocumentToHeadlines(document); 
-					allHeadlines.add(onePaperheadlines);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			
-			/*for (List<Headline> headlines : allHeadlines) {
-				for (Headline headline : headlines) {
-					buffer.append(headline.getUrl() + "\n");
-				}
-			}*/
-			return allHeadlines;
+			return onePaperheadlines;
 		}
 		
 		@Override
-		protected void onPostExecute(List<List<Headline>> result) {
+		protected void onPostExecute(List<Headline> result) {
 			super.onPostExecute(result);
-			textView.setText(result.toString());
+			headlines = result;
+			adapter = new CustomList(MainActivity.this, headlines);
+			listView = (ListView) findViewById(R.id.newsList);
+			listView.setAdapter(adapter);
 		}
 	}
 }

@@ -1,10 +1,15 @@
 package com.example.news_b;
 
+import android.graphics.Bitmap;
+
+
 public class Headline {
 
-	public Headline(String heading, String url) {
+	public Headline(String heading, String headlineUrl, Bitmap headlineImage, String fullNews) {
 		Heading = heading;
-		Url = url;
+		HeadlineUrl = headlineUrl;
+		HeadlineImage = headlineImage;
+		FullNews = fullNews;
 	}
 
 	public String getHeading() {
@@ -12,9 +17,20 @@ public class Headline {
 	}
 
 	public String getUrl() {
-		return Url;
+		return HeadlineUrl;
+	}
+	
+	public Bitmap getHeadlineImage(){
+		return HeadlineImage;
+	}
+	
+	public String getFullNews(){
+		return FullNews;
 	}
 
 	private String Heading;
-	private String Url;
+	private String HeadlineUrl;
+	private Bitmap HeadlineImage;
+	private String FullNews;
+
 }

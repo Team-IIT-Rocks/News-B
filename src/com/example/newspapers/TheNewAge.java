@@ -1,4 +1,4 @@
-package com.example.newspapers;
+/*package com.example.newspapers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,3 +39,4 @@ public class TheNewAge extends NewsPaper{
 	}
 
 }
+*/
